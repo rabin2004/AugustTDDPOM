@@ -3,7 +3,6 @@ package testPkg;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import basePkg.MainClass;
@@ -26,7 +25,7 @@ public class LoginTest extends MainClass {
 		tearDown();
 	}
 	
-	@Test (dataProvider="positiveLoginData")
+	@Test (dataProviderClass=data.LoginData.class, dataProvider="positiveLoginData")
 	public void positiveLoginFunctionalityTestClickingSubmitBtn(String username, String password) {
 		hp.enterUserName(username);
 		hp.enterPassword(password);
@@ -34,15 +33,5 @@ public class LoginTest extends MainClass {
 		String expectedLoginSuccessPageMsg = prop.getProperty("expectedLoginSuccessMsg");
 		String actualLoginSuccessMsg = lsp.captureLoginSuccessMsg(); 
 		Assert.assertEquals(actualLoginSuccessMsg, expectedLoginSuccessPageMsg);
-	}
-	
-	@DataProvider
-	public Object[][] positiveLoginData() {
-		Object[][] data = {	{"test", "123"},
-							{"test12", "123"},
-							{"test123", "123"},
-							{"test1234", "12345"},
-							{"test12345", "123"}};
-		return data;
 	}
 }

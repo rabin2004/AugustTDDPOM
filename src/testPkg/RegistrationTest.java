@@ -29,22 +29,11 @@ public class RegistrationTest extends MainClass{
 		tearDown();
 	}
 	
-	@Test(dataProvider="positiveRegistrationData")
+	@Test(dataProviderClass=data.RegistrationData.class, dataProvider="positiveRegistrationData")
 	public void positiveRegistrationFunctionality(String username, String passsword) {
 		hp.clickRegisterLink();
 		rp.submitRegistrationForm(username, passsword);
 		String expectedRegisterSuccessMsg = "Note: Your user name is "+username+".";
 		Assert.assertEquals(rsp.captureRegistrationSuccessMsg(), expectedRegisterSuccessMsg);
 	}
-	
-	@DataProvider
-	public Object[][] positiveRegistrationData() {
-		Object[][] data = {	{"test", "123"},
-							{"test12", "123"},
-							{"test123", "123"},
-							{"test1234", "12345"},
-							{"test12345", "123"}};
-		return data;
-	}
-
 }
